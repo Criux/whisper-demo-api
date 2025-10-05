@@ -2,6 +2,7 @@ package com.kmarinos.whisper_demo_api;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("api/v1")
+@Slf4j
 public class AsrController {
 
   @GetMapping("health")
@@ -30,10 +32,9 @@ public class AsrController {
   public ResponseEntity<String>asr(HttpServletRequest request,@RequestHeader HttpHeaders headers, @RequestParam Map<String,String> params, @RequestPart("audio_file")
       MultipartFile file){
     String queryString = request.getQueryString();
-
-    RestTemplate restTemplate = new RestTemplate();
+    log.info("Passing down request with params:{}",queryString);
     String response = forwardRequest(headers, file, queryString);
-    System.out.println("Response:"+response);
+    log.info("Got response:{}",response);
     return ResponseEntity.ok(response);
   }
   private String forwardRequest(HttpHeaders headers, MultipartFile file, String queryString){

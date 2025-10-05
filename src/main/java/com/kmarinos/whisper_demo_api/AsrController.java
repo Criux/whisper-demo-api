@@ -43,7 +43,7 @@ public class AsrController {
     HttpEntity<MultiValueMap<String,Object>> requestEntity
         = new HttpEntity<>(body, headers);
 
-    String serverUrl = "http://app-prd01.marinos.com:9010/asr?"+queryString;
+    String serverUrl = "http://192.168.1.71:9010/asr?"+queryString;
 
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> response = restTemplate
